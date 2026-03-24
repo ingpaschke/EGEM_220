@@ -1,0 +1,27 @@
+CC = m68k-atari-mint-gcc
+CFLAGS = -Wall -O2 -fomit-frame-pointer \
+         -Wno-incompatible-pointer-types -Wno-int-conversion \
+         -I.
+LDFLAGS =
+LIBS = -L. -le_gem -lgem
+
+EXAMPLES = sample.tos hello.tos mouse.tos
+
+all: libe_gem.a $(EXAMPLES)
+
+libe_gem.a:
+	$(MAKE) -f makefile.gcc
+
+sample.tos: ../example/windemo/sample.c libe_gem.a
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LIBS)
+
+hello.tos: ../example/windemo/hello.c libe_gem.a
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LIBS)
+
+mouse.tos: ../example/windemo/mouse.c libe_gem.a
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LIBS)
+
+clean:
+	rm -f $(EXAMPLES)
+
+.PHONY: all clean

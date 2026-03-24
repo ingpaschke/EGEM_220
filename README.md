@@ -1,8 +1,8 @@
 # EnhancedGEM Library v2.20
 
-A comprehensive GEM (Graphics Environment Manager) UI library for Atari ST/TT/Falcon computers, written in C and 68k assembly.
+A comprehensive GEM (Graphics Environment Manager) UI library for Atari ST/TT/Falcon computers, originally written in C and 68k assembly by Christian Grunenberg (1994). Adapted for modern cross-compilation with `m68k-atari-mint-gcc` and the current GemLib.
 
-**Author:** Christian Grunenberg, 1994
+**Original author:** Christian Grunenberg, 1994
 **License:** Freeware (including all source code and example programs)
 
 ## Overview
@@ -27,50 +27,44 @@ EnhancedGEM extends the native GEM AES/VDI APIs into a higher-level, event-drive
 ## Directory Structure
 
 ```
-SOURCE/         Library source code (C + 68k assembly)
-EXAMPLE/        Example programs
-  DIALDEMO/     Dialog demonstrations
-  WINDEMO/      Window demonstrations
-  WINVIEW/      File viewer / clipboard viewer
-  FONT/         Font palette and selector examples
-  PLAY_IT/      Puzzle game example
-  PREVIEW/      Resource file previewer
-DIALOG.DEM/     Precompiled dialog demo applications
-DOKU/           Documentation (German)
+source/         Library source code
+  aes_compat.c  AES compatibility shim for modern GemLib
+  e_gem.h       Main library header
+  proto.h       Internal prototypes
+  makefile.gcc  GCC cross-compilation Makefile
+example/        Example programs
+  dialdemo/     Dialog demonstrations
+  windemo/      Window demonstrations (sample, hello, mouse, lines, balls)
+  winview/      File viewer / clipboard viewer
+  font/         Font palette and selector examples
+  play_it/      Puzzle game example
+  preview/      Resource file previewer
+doku/           Documentation (German)
 ```
 
 ## Building
 
+### Cross-compilation with m68k-atari-mint-gcc (recommended)
+
+Requires `m68k-atari-mint-gcc` with MiNTLib and GemLib installed.
+
+```sh
+cd source
+make -f makefile.gcc            # build the library
+make -f makefile.examples       # build example programs
+```
+
+Produces `libe_gem.a` and example `.tos` executables. Builds with 32-bit `int` (no `-mshort`) using the modern GemLib (`gem.h`). See [README-GEMLIB.md](README-GEMLIB.md) for details on GemLib compatibility.
+
 ### Pure C (native Atari, 16-bit int)
 
-Open `SOURCE/E_GEM.PRJ` in the Pure C IDE. For a minimal build, use `SOURCE/EGEMLGHT.PRJ`.
+Open `source/e_gem.prj` in the Pure C IDE. For a minimal build, use `source/egemlght.prj`.
 
-### GCC with -mshort (16-bit int)
+### Linking
 
+```sh
+m68k-atari-mint-gcc -o myapp.tos myapp.c -I source -L source -le_gem -lgem
 ```
-cd SOURCE
-make -f MAKEFILE.GCC
-```
-
-Produces `e_gem.olb`.
-
-### GCC without -mshort (32-bit int)
-
-```
-cd SOURCE
-make -f MAKEFILE.G32
-```
-
-Produces `e_gem32.olb`. See [README-32BIT.md](README-32BIT.md) for details.
-
-### Lattice C (16-bit int)
-
-```
-cd SOURCE
-make -f MAKEFILE.LCC
-```
-
-Produces `e_gem.lib`.
 
 ## Light Version
 
@@ -94,7 +88,7 @@ Define `SMALL_LIGHT` to disable all optional features, or selectively disable in
 ## Quick Start
 
 ```c
-#include "e_gem.h"
+#include <e_gem.h>
 
 int Init(XEVENT *ev, int avail) {
     return (MU_MESAG | MU_KEYBD) & avail;
@@ -121,8 +115,8 @@ int main(void) {
 
 ## Documentation
 
-Full documentation is in `DOKU/` (German):
-- `MANUAL.TXT` — Complete reference manual
-- `USAGE.TXT` — Usage guide
-- `HISTORY.TXT` — Version history
-- `E_GEM.TXT` — Release notes
+- [README-GEMLIB.md](README-GEMLIB.md) — Modern GemLib compatibility layer
+- [README-32BIT.md](README-32BIT.md) — 32-bit `int` support details
+- `doku/manual.txt` — Complete reference manual (German)
+- `doku/usage.txt` — Usage guide (German)
+- `doku/history.txt` — Version history
