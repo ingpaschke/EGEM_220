@@ -1448,8 +1448,8 @@ char	ascii_box(DIAINFO *,char *);
 short		int2str(char *,short,short);
 short		mm2dpi(short);
 
-short		min(short,short);
-short		max(short,short);
+short		min(int,int);
+short		max(int,int);
 void	Min(short*,short);
 void	Max(short*,short);
 

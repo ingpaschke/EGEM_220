@@ -878,7 +878,7 @@ short mm2dpi(short size)
     }
 }
 
-short min(short v_1,short v_2)
+short min(int v_1,int v_2)
 {
 	if (v_1<v_2)
 		return(v_1);
@@ -886,7 +886,7 @@ short min(short v_1,short v_2)
 		return(v_2);
 }
 
-short max(short v_1,short v_2)
+short max(int v_1,int v_2)
 {
 	if (v_1>v_2)
 		return(v_1);
