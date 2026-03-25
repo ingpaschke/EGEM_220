@@ -1448,8 +1448,12 @@ char	ascii_box(DIAINFO *,char *);
 short		int2str(char *,short,short);
 short		mm2dpi(short);
 
-short		min(int,int);
-short		max(int,int);
+/* Use macros instead of the library functions to avoid calling-convention
+   issues when compiled with 32-bit int (short args get promoted to int). */
+#undef min
+#undef max
+#define min(a,b) ({ __typeof__(a) _a = (a); __typeof__(b) _b = (b); _a < _b ? _a : _b; })
+#define max(a,b) ({ __typeof__(a) _a = (a); __typeof__(b) _b = (b); _a > _b ? _a : _b; })
 void	Min(short*,short);
 void	Max(short*,short);
 
