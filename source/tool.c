@@ -878,21 +878,6 @@ short mm2dpi(short size)
     }
 }
 
-short min(int v_1,int v_2)
-{
-	if (v_1<v_2)
-		return(v_1);
-	else
-		return(v_2);
-}
-
-short max(int v_1,int v_2)
-{
-	if (v_1>v_2)
-		return(v_1);
-	else
-		return(v_2);
-}
 
 void Min(short *var,short val)
 {
