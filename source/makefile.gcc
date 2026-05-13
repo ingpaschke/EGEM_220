@@ -18,8 +18,7 @@ CFLAGS = -Wall $(GCCOPTS) \
          -D__CREATE_E_GEM_LIB__ -D__TCC_COMPAT__
 
 OBJS = dial.o xacc_av.o objcedit.o objc.o popup.o graf.o tool.o \
-       window.o event.o rc_ob_c.o fselect.o alerts.o dragdrop.o \
-       filetool.o aes_compat.o
+       window.o event.o rc_ob_c.o fselect.o alerts.o dragdrop.o filetool.o
 
 $(LIB_NAME): $(OBJS)
 	$(AR) rcs $(LIB_NAME) $(OBJS)

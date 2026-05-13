@@ -9,7 +9,6 @@ E_GEM was written in 1994 against the old MiNT GEM library (`aesbind.h` / `vdibi
 | Feature | Old MiNTLib | Modern GemLib |
 |---------|-------------|---------------|
 | Headers | `<aesbind.h>`, `<vdibind.h>` | `<gem.h>` (includes `<mt_gem.h>`) |
-| AES calls | Direct trap via `__aes__()` with `INTIN[]`/`INTOUT[]` arrays | Thread-safe `mt_*()` wrappers |
 | `wind_set` | Variable arg count (2-6 args) | Typed macros: `wind_set_int`, `wind_set_str`, `wind_set_grect` |
 | `evnt_timer` | Two args: `(lo_word, hi_word)` | One arg: `(milliseconds)` |
 | `scrp_clear` | Takes `int` arg (clear all vs scrap only) | No-arg macro |
@@ -19,27 +18,7 @@ E_GEM was written in 1994 against the old MiNT GEM library (`aesbind.h` / `vdibi
 
 ## Compatibility Layer
 
-### `aes_compat.c` — AES Trap Bridge
-
-E_GEM's `dial.c` originally implemented `objc_sysvar`, `appl_search`, `appl_getinfo`, and `wind_xget` using raw AES parameter blocks (`INTIN[]`, `INTOUT[]`, `ADDRIN[]`) and the `__aes__()` trap function. These have been rewritten to use `mt_*()` calls directly.
-
-The `aes_compat.c` shim provides the `__aes__()` function for any remaining raw AES calls. It decodes the packed opcode, constructs a proper AES parameter block, and calls the low-level `_aes()` trap:
-
-```c
-short __aes__(unsigned long packed)
-{
-    /* packed encoding:
-       bits 31-24: AES opcode
-       bits 23-16: num intin
-       bits 15-8:  num intout
-       bits 7-0:   num addrin */
-    short control[5];
-    void *aespb[6];
-    // ... decode and dispatch via _aes() ...
-}
-```
-
-The shim also provides global arrays `_egem_intin[140]`, `_egem_intout[140]`, and `_egem_addrin[16]` for any code that still uses the `INTIN`/`INTOUT`/`ADDRIN` macros (currently only the Pure C `wind_xget` path).
+`dial.c` originally implemented `objc_sysvar`, `appl_search`, `appl_getinfo`, and `wind_xget` using raw AES parameter blocks (`INTIN[]`, `INTOUT[]`, `ADDRIN[]`) and the `__aes__()` trap function. These have been rewritten to use `mt_*()` calls directly, so no AES trap shim is needed under modern GemLib.
 
 ### `vq_gdos()` Wrapper
 
@@ -129,7 +108,6 @@ CFLAGS = -Wall -O2 -fomit-frame-pointer -fno-strict-aliasing \
 
 | File | Role |
 |------|------|
-| `aes_compat.c` | `__aes__()` trap bridge, `INTIN`/`INTOUT`/`ADDRIN` arrays |
 | `rc_ob_c.c` | `vq_gdos()` wrapper, C rectangle operations |
 | `e_gem.h` | All `#undef` / `#define` compatibility macros |
 

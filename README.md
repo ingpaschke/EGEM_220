@@ -28,7 +28,6 @@ EnhancedGEM extends the native GEM AES/VDI APIs into a higher-level, event-drive
 
 ```
 source/         Library source code
-  aes_compat.c  AES compatibility shim for modern GemLib
   e_gem.h       Main library header
   proto.h       Internal prototypes
   makefile.gcc  GCC cross-compilation Makefile

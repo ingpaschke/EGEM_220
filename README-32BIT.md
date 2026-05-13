@@ -8,7 +8,7 @@ The original EnhancedGEM code (1994) assumed `sizeof(int) == 2` throughout, as w
 
 ## How It Works
 
-The library builds with 32-bit `int` by default. All data that must be 16 bits for the GEM AES/VDI interface uses `short` explicitly. The AES compatibility shim (`aes_compat.c`) bridges the gap between E_GEM's internal calling convention and modern GemLib.
+The library builds with 32-bit `int` by default. All data that must be 16 bits for the GEM AES/VDI interface uses `short` explicitly.
 
 Key adaptations:
 
