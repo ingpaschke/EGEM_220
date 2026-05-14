@@ -77,7 +77,7 @@ void Rect(int i,GRECT *rc)
 
 void Copy(MFDB *s,MFDB *d,int m,int sx,int sy,int dx,int dy)
 {
-	int pxy[8],sz=size-1;
+	short pxy[8],sz=size-1;
 	pxy[0] = sx;pxy[1] = sy;
 	pxy[2] = sx+sz;pxy[3] = sy+sz;
 	pxy[4] = dx;pxy[5] = dy;
@@ -223,12 +223,12 @@ void Exit(void)
 		exit_gem(TRUE,0);
 }
 
-int Init(XEVENT *e,int avail)
+short Init(XEVENT *e,short avail)
 {
 	return((MU_MESAG|MU_KEYBD)&avail);
 }
 
-int Event(XEVENT *ev)
+short Event(XEVENT *ev)
 {
 	int wi=ev->ev_mwich,sc=ev->ev_mkreturn,st=ev->ev_mmokstate;
 	if (wi&MU_MESAG)
@@ -254,7 +254,8 @@ int Event(XEVENT *ev)
 void Load(char *fi)
 {
 	MFDB img;
-	int wi,hei,i,pxy[8];
+	int wi,hei,i;
+	short pxy[8];
 	char buffer[256],info[256];
 	IMG *hdr;
 	byte *sta,*buf=NULL,*mem=NULL;
@@ -375,10 +376,10 @@ void Dialog(char *file)
 	}
 }
 
-int cdecl Draw(PARMBLK *pb)
+short cdecl Draw(PARMBLK *pb)
 {
 	GRECT work=*(GRECT *) &pb->pb_x;
-	int pxy[8];
+	short pxy[8];
 	if (rc_intersect((GRECT *) &pb->pb_xc,&work))
 	{
 		rc_grect_to_array(&work,&pxy[4]);

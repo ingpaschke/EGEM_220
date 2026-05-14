@@ -53,7 +53,7 @@ static void load_error(int icn,char *text,char *file)
 
 void SetFont(DATA *data,boolean set_font)
 {
-	int out[8];
+	short out[8];
 #ifdef CURSOR
 	int i,*p;
 #endif

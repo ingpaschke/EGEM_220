@@ -147,7 +147,7 @@ void Draw(int first,WIN *win,GRECT *area)
 
 void SetScroll(void)
 {
-	int out[4];
+	short out[4];
 
 	v_set_text(fntid,fntsize,FAIL,0,0,out);
 	scroll.vsize = app_cnt+OFFSET;
@@ -186,14 +186,15 @@ void OpenWindow(void)
 	start = win->curr;
 }
 
-int Init(XEVENT *ev,int avail)
+short Init(XEVENT *ev,short avail)
 {
 	return((MU_MESAG|MU_KEYBD)&avail);
 }
 
-int Event(XEVENT *ev)
+short Event(XEVENT *ev)
 {
-	int wi=ev->ev_mwich,i,k,*msg=ev->ev_mmgpbuf;
+	short wi=ev->ev_mwich,*msg=ev->ev_mmgpbuf;
+	int i,k;
 
 	if (wi&MU_MESAG)
 	{

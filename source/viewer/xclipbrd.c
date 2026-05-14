@@ -292,7 +292,7 @@ void HandleDialog(void)
 	CloseDialog(FALSE);
 }
 
-void ReceiveData(int *msg)
+void ReceiveData(short *msg)
 {
 	long len;
 
@@ -328,16 +328,17 @@ void ReceiveData(int *msg)
 		XAccSendAck(msg[1],FALSE);
 }
 
-int Init(XEVENT *ev,int avail)
+short Init(XEVENT *ev,short avail)
 {
 	return((MU_MESAG|MU_KEYBD)&avail);
 }
 
-int Event(XEVENT *ev)
+short Event(XEVENT *ev)
 {
 	DRAG_DROP *dd;
 	char *text;
-	int wi=ev->ev_mwich,*msg=ev->ev_mmgpbuf,sc=ev->ev_mkreturn,k;
+	short wi=ev->ev_mwich,*msg=ev->ev_mmgpbuf,sc=ev->ev_mkreturn;
+	int k;
 
 	if (wi&MU_MESAG)
 	{
@@ -466,7 +467,7 @@ int Event(XEVENT *ev)
 	return(wi);
 }
 
-int cdecl DrawUser(PARMBLK *pb)
+short cdecl DrawUser(PARMBLK *pb)
 {
 	GRECT work=*(GRECT *) &pb->pb_x;
 	int old[4],new[4];

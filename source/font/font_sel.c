@@ -47,14 +47,14 @@ void Exit(void)
 		exit_gem(TRUE,0);
 }
 
-int Init(XEVENT *ev,int avail)
+short Init(XEVENT *ev,short avail)
 {
 	return((MU_MESAG|MU_KEYBD)&avail);
 }
 
-int Event(XEVENT *ev)
+short Event(XEVENT *ev)
 {
-	int wi=ev->ev_mwich,*msg=ev->ev_mmgpbuf;
+	short wi=ev->ev_mwich,*msg=ev->ev_mmgpbuf;
 
 	if (wi&MU_MESAG)
 		switch (msg[0])

@@ -726,9 +726,9 @@ void SearchString(DATA *data)
  Initialisierungs-Routine, welche die Event-Struktur setzt sowie die
  Ereignisse, die von der Applikation ben”tigt werden, zurckgibt
 ***********************************************************************/
-int InitEvent(XEVENT *ev,int avail)
+short InitEvent(XEVENT *ev,short avail)
 {
-	int flags=MU_MESAG|MU_KEYBD;	/* auf Nachrichten und Tastendrcke warten */
+	short flags=MU_MESAG|MU_KEYBD;	/* auf Nachrichten und Tastendrcke warten */
 
 #ifdef CURSOR
 	/* Infozeile aktualisieren (4. Timer ist immer verfgbar) */
@@ -756,18 +756,19 @@ int InitEvent(XEVENT *ev,int avail)
 /***********************************************************************
  Ereignisauswertung (AES-Nachrichten, Mausklicks/-bewegung, Tastendrcke)
 ***********************************************************************/
-int Event(XEVENT *ev)
+short Event(XEVENT *ev)
 {
 	WIN *win;
 	DATA *data;
-	int wich=ev->ev_mwich,*msg,i,k,scan,state,old_x,old_y;
+	short wich=ev->ev_mwich,*msg,scan,state,old_x,old_y;
+	int i,k;
 
 #ifdef CLIPVIEW
 	char scrap[MAX_PATH],*path;
 #else
 	DRAG_DROP *dd;
 	char *ptr;
-	int mbuf[8];
+	short mbuf[8];
 #endif
 
 #ifdef CURSOR
@@ -968,7 +969,7 @@ int Event(XEVENT *ev)
 				data = OpenWindow(ptr,NULL,0l);
 			else					/* Datei anzeigen */
 			{
-				i = *(int *) &ptr[4];
+				i = *(short *) &ptr[4];
 				data = OpenWindow(&ptr[6],&ptr[i],(*(long *) &msg[5]) - i);
 			}
 			/* Nachricht entsprechend beantworten */

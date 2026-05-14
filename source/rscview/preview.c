@@ -129,14 +129,15 @@ void Dialog(void)
 	Exit(FALSE,0);
 }
 
-int Init(XEVENT *ev,int avail)
+short Init(XEVENT *ev,short avail)
 {
 	return((MU_MESAG|MU_KEYBD)&avail);
 }
 
-int Event(XEVENT *ev)
+short Event(XEVENT *ev)
 {
-	int wi=ev->ev_mwich,*msg=ev->ev_mmgpbuf,i;
+	short wi=ev->ev_mwich,*msg=ev->ev_mmgpbuf;
+	int i;
 	DRAG_DROP *dd;
 
 	if (wi & MU_MESAG)

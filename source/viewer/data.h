@@ -32,14 +32,14 @@ typedef struct
 /* Header einer Image-Datei */
 typedef struct
 {
-	int	version;
-	int	headlength;
-	int	nplanes;
-	int patlen;
-	int pixwidth;
-	int	pixheight;
-	int	width;
-	int height;
+	short	version;
+	short	headlength;
+	short	nplanes;
+	short patlen;
+	short pixwidth;
+	short	pixheight;
+	short	width;
+	short height;
 } IMG;
 
 /* Struktur fÅr Text-/Dumpzeilen */

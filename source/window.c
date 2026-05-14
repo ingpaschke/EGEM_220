@@ -436,7 +436,7 @@ short cdecl _default_icfs(short type,...)
 	}
 	else if (type==ICF_FREEPOS)
 	{
-		bitpos = va_arg(pp,short)-1;
+		bitpos = va_arg(pp,int)-1;	/* short promotes to int in variadics */
 		if (bitpos>=0 && bitpos<=31)
 		{
 			if (bitpos>0)

@@ -526,15 +526,15 @@ int get_type(int obj,int masc)
 	return(ob_isstate(cr_tree,obj,SELECTED) ? masc : 0);
 }
 
-int InitEvent(XEVENT *ev,int avail)
+short InitEvent(XEVENT *ev,short avail)
 {
 	return((MU_MESAG|MU_KEYBD)&avail);
 }
 
-int Event(XEVENT *ev)
+short Event(XEVENT *ev)
 {
 	long ypos;
-	int wi=ev->ev_mwich,*msg=ev->ev_mmgpbuf;
+	short wi=ev->ev_mwich,*msg=ev->ev_mmgpbuf;
 
 	if (wi&MU_MESAG)
 		switch (msg[0])
@@ -745,7 +745,7 @@ void Draw(WIN *win,GRECT *work)
 	restore_clipping(old);
 }
 
-int cdecl DrawUser(PARMBLK *pb)
+short cdecl DrawUser(PARMBLK *pb)
 {
 	GRECT work = *(GRECT *) &pb->pb_x;
 	if (rc_intersect((GRECT *) &pb->pb_xc,&work))
