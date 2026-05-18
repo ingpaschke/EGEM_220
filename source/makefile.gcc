@@ -15,7 +15,8 @@ CFLAGS = -Wall $(GCCOPTS) \
          -Wno-incompatible-pointer-types -Wno-int-conversion \
          -Wno-pointer-to-int-cast \
          -Wno-implicit-function-declaration \
-         -D__CREATE_E_GEM_LIB__ -D__TCC_COMPAT__
+         -D__CREATE_E_GEM_LIB__ -D__TCC_COMPAT__ \
+         -DFORCE_GEMLIB_UDEF
 
 OBJS = dial.o xacc_av.o objcedit.o objc.o popup.o graf.o tool.o \
        window.o event.o rc_ob_c.o fselect.o alerts.o dragdrop.o filetool.o
