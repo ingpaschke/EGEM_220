@@ -7,7 +7,7 @@
 #undef ev_mthicount
 
 #define MOUSE_OBJ	0x100
-#define MTOS_TIMER	50
+#define MTOS_TIMER	5000
 
 typedef struct
 {
